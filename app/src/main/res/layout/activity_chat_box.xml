@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    tools:context=".ChatBox">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:elevation="10dp"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark"
+        app:contentInsetLeft="5dp"
+        app:contentInsetStart="0dp"
+        app:menu="@menu/chatboxmenu"
+
+        app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/userImgView"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_baseline_keyboard_backspace_24"
+                app:layout_constraintEnd_toStartOf="@+id/avatar_group"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+            <TextView
+                android:id="@+id/nameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="hi"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/avatar_group"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/avatar_group"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/defaultavatar"
+                android:layout_marginStart="50dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.appbar.MaterialToolbar>
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeToLoad"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/inputBox"
+        android:layout_below="@+id/toolbar">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/msgRv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="ifContentScrolls"
+            tools:itemCount="10"
+            tools:listitem="@layout/list_item_chat_sent_message"
+             />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <RelativeLayout
+        android:id="@+id/inputBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+
+        android:paddingBottom="5dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+
+            >
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/messageInputContainer"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_margin="6dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/input_background"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/voiceRecordingOrSend"
+                tools:context="com.example.chattutorial.ChannelActivity">
+
+                <ImageButton
+                    android:id="@+id/addEmoticon"
+                    android:layout_width="25dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="12dp"
+                    android:background="@null"
+                    android:src="@drawable/smile_icon"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:tint="#88898b" />
+
+                <com.vanniktech.emoji.EmojiEditText
+                    android:id="@+id/messageInput"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="12dp"
+                    android:background="@android:color/transparent"
+                    android:hint="Type a message"
+
+                    app:layout_constraintLeft_toRightOf="@+id/addEmoticon"
+                    app:layout_constraintRight_toLeftOf="@+id/addAttachment" />
+
+                <ImageButton
+                    android:id="@+id/addAttachment"
+                    android:layout_width="22dp"
+                    android:background="@null"
+                    android:layout_marginEnd="10dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/file_attach"
+                    app:layout_constraintRight_toLeftOf="@+id/takePicture"
+                    app:tint="#88898b" />
+
+                <ImageButton
+                    android:id="@+id/takePicture"
+                    android:layout_width="22dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="20dp"
+                    android:background="@null"
+                    android:src="@drawable/camera_attach"
+
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:tint="#88898b" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/voiceRecordingOrSend"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:fabCustomSize="48dp"
+                android:layout_margin="6dp"
+                app:backgroundTint="#19887a"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/messageInputContainer"
+                app:tint="@color/white"
+
+                android:src="@drawable/ic_baseline_mic_24"/>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </RelativeLayout>
+</RelativeLayout>
